@@ -14,14 +14,14 @@ class Libro {
     }
 
     public function actualizar($id, $titulo, $isbn, $autor) {
-        $stmt = $this->conn->prepare("UPDATE libros SET titulo = ?, isbn = ?, autor = ? WHERE id = ?");
+        $stmt = $this->conn->prepare("UPDATE libros SET titulo=?, isbn=?, autor=? WHERE id=?");
         $stmt->bind_param("sssi", $titulo, $isbn, $autor, $id);
         $stmt->execute();
         $stmt->close();
     }
 
     public function eliminar($id) {
-        $stmt = $this->conn->prepare("DELETE FROM libros WHERE id = ?");
+        $stmt = $this->conn->prepare("DELETE FROM libros WHERE id=?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $stmt->close();
@@ -33,10 +33,11 @@ class Libro {
     }
 
     public function obtenerPorId($id) {
-        $stmt = $this->conn->prepare("SELECT * FROM libros WHERE id = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM libros WHERE id=?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
+        $stmt->close();
         return $result->fetch_assoc();
     }
 }

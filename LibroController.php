@@ -1,6 +1,6 @@
 <?php
-require_once '../db.php';
-require_once '../model/Libro.php';
+require_once 'db.php';
+require_once 'Libro.php';
 
 class LibroController {
     private $model;
@@ -24,7 +24,7 @@ class LibroController {
         $isbn = $_POST['isbn'];
         $autor = $_POST['autor'];
         $this->model->crear($titulo, $isbn, $autor);
-        header("Location: ../view/index.php");
+        header("Location: index.php");
     }
 
     private function actualizarLibro() {
@@ -33,13 +33,13 @@ class LibroController {
         $isbn = $_POST['isbn'];
         $autor = $_POST['autor'];
         $this->model->actualizar($id, $titulo, $isbn, $autor);
-        header("Location: ../view/index.php");
+        header("Location: index.php");
     }
 
     private function eliminarLibro() {
         $id = $_GET['eliminar'];
         $this->model->eliminar($id);
-        header("Location: ../view/index.php");
+        header("Location: index.php");
     }
 
     public function obtenerTodos() {
@@ -52,7 +52,6 @@ class LibroController {
 }
 
 // Iniciar el controlador y manejar la solicitud
-$conn = new mysqli($servername, $username, $password, $dbname);
 $controller = new LibroController($conn);
 $controller->manejarSolicitud();
 ?>
